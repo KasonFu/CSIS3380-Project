@@ -296,7 +296,7 @@ class Page
 			case "video/mp4":
 				$src = $image->mp4;
 				?>
-					<video preload="auto" autoplay="autoplay" loop="loop" style="width: auto; height: auto;">
+					<video autoplay loop="loop" style="width: auto; height: auto;">
 						<source src="<?php echo $src ?>" type="video/mp4"></source>
 					</video>
 				<?php
