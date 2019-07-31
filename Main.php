@@ -15,6 +15,11 @@ require_once("inc/Utilities/RestClient.class.php");
 
 session_start();
 
+AlbumDAO::init();
+UserDAO::init();
+$userid = UserDAO::getUser($_SESSION["username"])->getUserID();
+$_SESSION["userid"] = $userid;
+
 if (isset($_POST["logout"])) {
 	session_destroy();
 	header("location:Login.php");
@@ -32,58 +37,55 @@ if(isset($_POST["viewTrendyPost"])) {
 	return;
 }
 
-AlbumDAO::init();
-UserDAO::init();
-$userid = UserDAO::getUser($_SESSION["username"])->getUserID();
-if (isset($_POST["addbtn"])) { }
 
-if (isset($_POST["createbtn"])) {
-	if (!empty($_POST["newalbumname"])) {
-		$newalbum = new Album();
-		$newalbum->setAlbumName($_POST["newalbumname"]);
-		$newalbum->setUserID($userid);
-		var_dump($newalbum);
-		AlbumDAO::createAlbum($newalbum);
-	}
-}
+		if (isset($_POST["createbtn"])) {
+			if (!empty($_POST["newalbumname"])) {
+				$newalbum = new Album();
+				$newalbum->setAlbumName($_POST["newalbumname"]);
+				$newalbum->setUserID($userid);
+				var_dump($newalbum);
+				AlbumDAO::createAlbum($newalbum);
+			}
+		}
 
-if (isset($_POST["deletebtn"])) {
-	if (isset($_POST["deleteradio"])) {
-		AlbumDAO::deleteAlbum($_POST["deleteradio"]);
-	}
-}
+		if (isset($_POST["deletebtn"])) {
+			if (isset($_POST["deleteradio"])) {
+				AlbumDAO::deleteAlbum($_POST["deleteradio"]);
+			}
+		}
 
-if (isset($_POST["updatebtn"])) {
-	if (isset($_POST["editradio"]) && isset($_POST["newname"])) {
-		$albumname = $_POST["newname"];
-		$a = new Album();
-		$a->setAlbumName($albumname);
-		$a->setUserID($userid);
-		$a->setAlbumID($_POST["editradio"]);
-		AlbumDAO::updateAlbum($a);
-	}
-}
+		if (isset($_POST["updatebtn"])) {
+			if (isset($_POST["editradio"]) && isset($_POST["newname"])) {
+				$albumname = $_POST["newname"];
+				$a = new Album();
+				$a->setAlbumName($albumname);
+				$a->setUserID($userid);
+				$a->setAlbumID($_POST["editradio"]);
+				AlbumDAO::updateAlbum($a);
+			}
+		}
 
-Page::header();
-Page::mainpage();
+		Page::header();
+		Page::mainpage();
 
-if (isset($_POST["showAlbum"])) {
-	header("location:Album.php");
-	return;
-} else {
-	$albums = AlbumDAO::getAlbums($userid);
-	if (isset($_POST["addtoAlbum"])) {
-		Page::addimageform($albums);
-	}
-	if (isset($_POST["createAlbum"])) {
-		Page::createalbum();
-	}
-	if (isset($_POST["deleteAlbum"])) {
-		Page::deletealbum($albums);
-	}
-	if (isset($_POST["updateAlbum"])) {
-		Page::updatealbum($albums);
-	}
-}
+		if (isset($_POST["showAlbum"])) {
+			header("location:Album.php");
+			return;
+		} else {
+			$albums = AlbumDAO::getAlbums($userid);
 
-Page::footer();
+			if (isset($_POST["addtoAlbum"])) {
+				Page::addimageform($albums);
+			}
+			if (isset($_POST["createAlbum"])) {
+				Page::createalbum();
+			}
+			if (isset($_POST["deleteAlbum"])) {
+				Page::deletealbum($albums);
+			}
+			if (isset($_POST["updateAlbum"])) {
+				Page::updatealbum($albums);
+			}
+		}
+
+		Page::footer();

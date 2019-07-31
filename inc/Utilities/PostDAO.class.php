@@ -37,13 +37,14 @@ class PostDAO   {
     
     static function createPost(Post $p)  {
 
-        $sqlInsert = "INSERT INTO post (imageurl, albumid)
-            VALUES (:imageurl, :albumid);";
+        $sqlInsert = "INSERT INTO post (imagetype,imageurl, albumid)
+            VALUES (:imagetype, :imageurl, :albumid);";
         //Query!
         self::$db->query($sqlInsert);
-        //Bind!
-        self::$db->bind(':imageurl',$a->getImageURL());
-        self::$db->bind(':albumid',$a->getAlbumID());
+        //Bind
+        self::$db->bind(':imagetype',$p->getImageType());
+        self::$db->bind(':imageurl',$p->getImageURL());
+        self::$db->bind(':albumid',$p->getAlbumID());
         //Execute!
         self::$db->execute();
         //Return the reuslts!

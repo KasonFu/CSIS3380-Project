@@ -111,7 +111,6 @@ class Page
 	{ ?>
 		<form class="login100-form validate-form" action="" method="POST">
 			<input class="login100-form-btn" type="submit" name="viewTrendyPost" value="View Trendy Post">
-			<input class="login100-form-btn" type="submit" name="addtoAlbum" value="Add into Exist Ambum">
 			<input class="login100-form-btn" type="submit" name="createAlbum" value="Create New Album">
 			<input class="login100-form-btn" type="submit" name="deleteAlbum" value="Delete your Albums">
 			<input class="login100-form-btn" type="submit" name="updateAlbum" value="Edit your Albums">
@@ -226,28 +225,40 @@ class Page
 	<?php
 	}
 
+
+
 	static function showimages($AlbumID)
 	{
 		$Album = AlbumDAO::getAlbum($AlbumID);
-		echo "This is Album: " . $Album->getAlbumName();
+		echo "Images in Album: " . $Album->getAlbumName();
 		$posts = PostDAO::getPosts($AlbumID);
-		echo "<Table>";
-		if (count($posts) == 0) { ?>
-			<TR>
-				<TD>You have no image in this album.
-				<TD>
-			</TR>
+		//var_dump($posts);?>
+		<div style="display: flex, flex-direction: row, flex-wrap: wrap, width: 1000px">
+		<?php if (count($posts) == 0) { ?>
+				<h6>You have no image in this album.</h6>
 		<?php }
 		foreach ($posts as $post) {
 			?>
-			<TR>
-				<TD><img src=<?php echo $post->getImageURL(); ?>>
-				<TD>
-			</TR>
-		<?php
-		}
-		echo "</Table>";
-	}
+			<div class="card" style="width: 18rem;">
+			<?php
+			if($post->getImageType() == "image/jpeg")
+			{
+			?>
+					<img src="<?php echo $post->getImageURL(); ?>" class='card-img-top'>
+		<?php } 
+				else if($post->getImageType() == "video/mp4")
+				{?>
+						<video autoplay loop="loop" style="width: auto; height: auto;">
+						<source src="<?php echo $post->getImageURL(); ?>" type="video/mp4"></source>
+					</video>
+				<?php	
+				}?>
+			</div>
+		<?php }?>
+			</div>
+	<?php }
+
+
 
 	static function createList($posts)
 	{
@@ -274,11 +285,12 @@ class Page
 		?>
 			<div class="card" style="width: 18rem;">
 				<?php
+					//var_dump($item->images[0]);
 					Page::createMedia($item->images[0]);
 				?>
 				<div class="card-body">
 					<h5 class="card-title"><?php echo $item->title ?></h5>
-					<a href="#" class="btn btn-primary">Save to my album</a>
+					<a href="?url=<?php echo $item->images[0]->link; ?>&&type=<?php echo $item->images[0]->type; ?>" class="btn btn-primary">Save to my album</a>
 				</div>
 			</div>
 		<?php
