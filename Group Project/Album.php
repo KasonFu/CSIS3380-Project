@@ -15,7 +15,8 @@ session_start();
 if(isset($_POST["logout"]))
 {
     session_destroy();
-    header("location:Login.php");
+    header("location:The two.php");
+    return;
 }
   else if($_SESSION["loggedin"])
     {
@@ -43,7 +44,8 @@ if(isset($_POST["logout"]))
     }
     else{
         session_destroy();
-        header("location:Login.php");
+        header("location:The two.php");
+        return;
     }
 
 ?>

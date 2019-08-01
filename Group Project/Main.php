@@ -15,20 +15,16 @@ require_once("inc/Utilities/RestClient.class.php");
 
 session_start();
 
-AlbumDAO::init();
-UserDAO::init();
-$userid = UserDAO::getUser($_SESSION["username"])->getUserID();
-$_SESSION["userid"] = $userid;
 
 if (isset($_POST["logout"])) {
 	session_destroy();
-	header("location:Login.php");
+	header("location:The two.php");
 	return;
 }
 
 if (!isset($_SESSION) || !$_SESSION["loggedin"]) {
 	session_destroy();
-	header("location:Login.php");
+	header("location:The two.php");
 	return;
 }
 
@@ -37,13 +33,16 @@ if(isset($_POST["viewTrendyPost"])) {
 	return;
 }
 
+AlbumDAO::init();
+UserDAO::init();
+$userid = UserDAO::getUser($_SESSION["username"])->getUserID();
+$_SESSION["userid"] = $userid;
 
 		if (isset($_POST["createbtn"])) {
 			if (!empty($_POST["newalbumname"])) {
 				$newalbum = new Album();
 				$newalbum->setAlbumName($_POST["newalbumname"]);
 				$newalbum->setUserID($userid);
-				var_dump($newalbum);
 				AlbumDAO::createAlbum($newalbum);
 			}
 		}
