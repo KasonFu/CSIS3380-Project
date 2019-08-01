@@ -13,6 +13,14 @@ require_once("inc/Utilities/RestClient.class.php");
 
 //Session start
 session_start();
+
+//Check if the form was posted
+if (!isset($_SESSION) || !$_SESSION["loggedin"]) {
+	session_destroy();
+	header("location:The two.php");
+	return;
+}
+
 //DAO init
 AlbumDAO::init();
 PostDAO::init();

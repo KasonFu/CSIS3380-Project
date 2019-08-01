@@ -45,14 +45,15 @@ class User  {
 
     function verifypassword(string $passwordToVerify) {
         //Return a boolean based on verifying if the password given is correct for the current user
-        if($this->password == $passwordToVerify)
-            return TRUE;
-        else 
-            return FALSE;
+        // if($this->password == $passwordToVerify)
+        //     return TRUE;
+        // else 
+		//     return FALSE;
+		if(password_verify($passwordToVerify, $this->password))
+			return TRUE;
+		else
+			return FALSE;
     }
 }
-
-
-
 
 ?>
