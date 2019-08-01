@@ -28,6 +28,10 @@ PostDAO::init();
 //Get posts from API
 $trendyPost = TrendyPost::GetTrendyPost();
 
+if(isset($_POST["GoBackToMenu"]))
+{
+	header("location:Main.php");
+}
 
 //Check POST and GET
 if (isset($_GET["url"])) {

@@ -4,7 +4,7 @@ class Page
 {
 
 	public static $title = "Set Title!";
-//Header
+	//Header
 	static function header()
 	{ ?>
 
@@ -48,12 +48,12 @@ class Page
 
 
 					<?php }
-//Footer
+					//Footer
 					static function footer()
 					{ ?>
 
 					</div>
-					
+
 				</div>
 				<h6>It's the group project designed by <i>Hongkun Fu</i> and <i>Nguyen Nguyen(Steven)</i> </h6>
 			</div>
@@ -74,11 +74,12 @@ class Page
 			<!--===============================================================================================-->
 			<script src="js/main.js"></script>
 		</body>
+
 		</html>
 	<?php
 	}
 
-//Show login page 	
+	//Show login page 	
 	static function showlogin()
 	{    ?>
 
@@ -109,7 +110,7 @@ class Page
 
 	<?php }
 
-//Show main page
+	//Show main page
 	static function mainpage()
 	{ ?>
 		<form class="login100-form validate-form" action="" method="POST">
@@ -124,7 +125,7 @@ class Page
 	}
 
 
-//Show form to add image
+	//Show form to add image
 	static function addimageform($albums)
 	{
 		if (count($albums) == 0) {
@@ -144,7 +145,7 @@ class Page
 		<?php }
 	}
 
-//Show form to delete album
+	//Show form to delete album
 	static function deletealbum($albums)
 	{
 		if (count($albums) == 0) {
@@ -165,7 +166,7 @@ class Page
 	}
 
 
-//Show form to update album
+	//Show form to update album
 	static function updatealbum($albums)
 	{
 		if (count($albums) == 0) {
@@ -188,7 +189,7 @@ class Page
 	}
 
 
-//Show form to cerate album
+	//Show form to cerate album
 	static function createalbum()
 	{ ?>
 		<h6>Create New Album</h6>
@@ -201,7 +202,7 @@ class Page
 	<?php }
 
 
-//Show album page
+	//Show album page
 	static function albumpage($Albums)
 	{ ?>
 		<form method="POST" action="" class="login100-form validate-form">
@@ -237,43 +238,45 @@ class Page
 	}
 
 
-//Show images in album
+	//Show images in album
 	static function showimages($AlbumID)
 	{
 		$Album = AlbumDAO::getAlbum($AlbumID);
 		echo "Images in Album: " . $Album->getAlbumName();
 		$posts = PostDAO::getPosts($AlbumID);
-		//var_dump($posts);?>
+		//var_dump($posts);
+		?>
 		<div style="display: flex, flex-direction: row, flex-wrap: wrap, width: 1000px">
-		<?php if (count($posts) == 0) { ?>
+			<?php if (count($posts) == 0) { ?>
 				<h6>You have no image in this album.</h6>
-		<?php }
-		foreach ($posts as $post) {
-			?>
-			<div class="card" style="width: 18rem;">
-			<?php
-			if($post->getImageType() == "image/jpeg")
-			{
-			?>
-					<img src="<?php echo $post->getImageURL(); ?>" class='card-img-top'>
-		<?php } 
-				else if($post->getImageType() == "video/mp4")
-				{?>
+			<?php }
+			foreach ($posts as $post) {
+				?>
+				<div class="card" style="width: 18rem;">
+					<?php
+					if ($post->getImageType() == "image/jpeg") {
+						?>
+						<img src="<?php echo $post->getImageURL(); ?>" class='card-img-top'>
+					<?php } else if ($post->getImageType() == "video/mp4") { ?>
 						<video autoplay loop="loop" style="width: auto; height: auto;">
-						<source src="<?php echo $post->getImageURL(); ?>" type="video/mp4"></source>
-					</video>
-				<?php	
-				}?>
-			</div>
-		<?php }?>
-			</div>
+							<source src="<?php echo $post->getImageURL(); ?>" type="video/mp4">
+							</source>
+						</video>
+					<?php
+					} ?>
+				</div>
+			<?php } ?>
+		</div>
 	<?php }
 
 
-//Create list for API
+	//Create list for API
 	static function createList($posts)
 	{
 		?>
+		<form class="login100-form validate-form" action="" method="POST">
+			<input class="login100-form-btn" type="submit" name="GoBackToMenu" value="Go back to menu">
+		</form>
 		<div style="display: flex, flex-direction: row, flex-wrap: wrap, width: 1000px">
 			<?php
 
@@ -294,24 +297,23 @@ class Page
 	static function createItem($item)
 	{
 		?>
-			<div class="card" style="width: 18rem;">
-				<?php
-					//var_dump($item->images[0]);
-					Page::createMedia($item->images[0]);
-				?>
-				<div class="card-body">
-					<h5 class="card-title"><?php echo $item->title ?></h5>
-					<a href="?url=<?php echo $item->images[0]->link; ?>&&type=<?php echo $item->images[0]->type; ?>" class="btn btn-primary">Save to my album</a>
-				</div>
+		<div class="card" style="width: 18rem;">
+			<?php
+			//var_dump($item->images[0]);
+			Page::createMedia($item->images[0]);
+			?>
+			<div class="card-body">
+				<h5 class="card-title"><?php echo $item->title ?></h5>
+				<a href="?url=<?php echo $item->images[0]->link; ?>&&type=<?php echo $item->images[0]->type; ?>" class="btn btn-primary">Save to my album</a>
 			</div>
-		<?php
+		</div>
+	<?php
 	}
 
 	static function createMedia($image)
 	{
 		// var_dump($image);
-		switch ($image->type)
-		{
+		switch ($image->type) {
 			case "image/jpeg":
 				$src = $image->link;
 				echo "<img src='" . $src . "' class='card-img-top'>";
@@ -319,13 +321,14 @@ class Page
 			case "video/mp4":
 				$src = $image->mp4;
 				?>
-					<video autoplay loop="loop" style="width: auto; height: auto;">
-						<source src="<?php echo $src ?>" type="video/mp4"></source>
-					</video>
-				<?php
-				break;
-		}
+			<video muted autoplay loop="loop" style="width: auto; height: auto;">
+				<source src="<?php echo $src ?>" type="video/mp4">
+				</source>
+			</video>
+			<?php
+			break;
 	}
+}
 }
 
 ?>
