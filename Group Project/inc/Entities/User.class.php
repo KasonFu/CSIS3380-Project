@@ -5,7 +5,7 @@ class User  {
     private $userid;
     private $username;
     private $password;
-
+//Get function
     function getUserName(): String {
         return $this->username;
     }
@@ -17,7 +17,7 @@ class User  {
     function getUserID(){
         return $this->userid;
     }
-
+//Set function
     function setusername(String $newName)    {
       $this->username = $newName;  
     }

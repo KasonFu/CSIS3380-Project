@@ -4,7 +4,7 @@ class Page
 {
 
 	public static $title = "Set Title!";
-
+//Header
 	static function header()
 	{ ?>
 
@@ -48,12 +48,14 @@ class Page
 
 
 					<?php }
-
+//Footer
 					static function footer()
 					{ ?>
 
 					</div>
+					
 				</div>
+				<h6>It's the group project designed by <i>Hongkun Fu</i> and <i>Nguyen Nguyen(Steven)</i> </h6>
 			</div>
 			<!--===============================================================================================-->
 			<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
@@ -71,12 +73,12 @@ class Page
 			<script src="vendor/countdowntime/countdowntime.js"></script>
 			<!--===============================================================================================-->
 			<script src="js/main.js"></script>
-
 		</body>
-
 		</html>
 	<?php
 	}
+
+//Show login page 	
 	static function showlogin()
 	{    ?>
 
@@ -107,6 +109,7 @@ class Page
 
 	<?php }
 
+//Show main page
 	static function mainpage()
 	{ ?>
 		<form class="login100-form validate-form" action="" method="POST">
@@ -120,6 +123,8 @@ class Page
 	<?php
 	}
 
+
+//Show form to add image
 	static function addimageform($albums)
 	{
 		if (count($albums) == 0) {
@@ -139,6 +144,7 @@ class Page
 		<?php }
 	}
 
+//Show form to delete album
 	static function deletealbum($albums)
 	{
 		if (count($albums) == 0) {
@@ -158,6 +164,8 @@ class Page
 		<?php }
 	}
 
+
+//Show form to update album
 	static function updatealbum($albums)
 	{
 		if (count($albums) == 0) {
@@ -180,6 +188,7 @@ class Page
 	}
 
 
+//Show form to cerate album
 	static function createalbum()
 	{ ?>
 		<h6>Create New Album</h6>
@@ -191,6 +200,8 @@ class Page
 
 	<?php }
 
+
+//Show album page
 	static function albumpage($Albums)
 	{ ?>
 		<form method="POST" action="" class="login100-form validate-form">
@@ -226,7 +237,7 @@ class Page
 	}
 
 
-
+//Show images in album
 	static function showimages($AlbumID)
 	{
 		$Album = AlbumDAO::getAlbum($AlbumID);
@@ -259,7 +270,7 @@ class Page
 	<?php }
 
 
-
+//Create list for API
 	static function createList($posts)
 	{
 		?>

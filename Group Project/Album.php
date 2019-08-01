@@ -9,11 +9,13 @@ require_once("inc/Utilities/UserDAO.class.php");
 require_once("inc/Utilities/AlbumDAO.class.php");
 require_once("inc/Utilities/PostDAO.class.php");
 
-
+//Session start
 session_start();
 
+//Check POST and GET
 if(isset($_POST["logout"]))
 {
+    //Sesion destroy and head to login page
     session_destroy();
     header("location:The two.php");
     return;
@@ -26,7 +28,10 @@ if(isset($_POST["logout"]))
         }
         else
         {
+            //DAO init
             UserDAO::init();
+
+            //Get current user
             $username = $_SESSION["username"];
             $user = UserDAO::getUser($username);
             $userID = $user->getUserID();

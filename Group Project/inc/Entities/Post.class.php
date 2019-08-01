@@ -6,7 +6,7 @@ class Post  {
     private $imageurl;
     private $imagetype;
     private $albumid;
-
+//Get function
     function getAlbumID(): String {
         return $this->albumid;
     }
@@ -22,7 +22,7 @@ class Post  {
     function getImageType()  {
         return $this->imagetype;
     }
-
+//Set function
     function setAlbumID($newName)    {
       $this->albumid = $newName;  
     }

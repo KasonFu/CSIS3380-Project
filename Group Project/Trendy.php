@@ -11,11 +11,17 @@ require_once("inc/Utilities/PostDAO.class.php");
 require_once("inc/Utilities/TrendyPost.class.php");
 require_once("inc/Utilities/RestClient.class.php");
 
+//Session start
 session_start();
+//DAO init
 AlbumDAO::init();
 PostDAO::init();
+
+//Get posts from API
 $trendyPost = TrendyPost::GetTrendyPost();
 
+
+//Check POST and GET
 if (isset($_GET["url"])) {
 	if(isset($_POST["addbtn"]))
 	{
@@ -27,6 +33,7 @@ if (isset($_GET["url"])) {
             $p->setImageType($_GET["type"]);
             PostDAO::createPost($p);
         }
+        //Head to main page
         header("location:Main.php");
 	}
 	else{

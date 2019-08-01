@@ -6,7 +6,7 @@ class Album  {
     private $albumname;
     private $userid;
 
-
+//Get function
     function getAlbumName() {
         return $this->albumname;
     }
@@ -20,7 +20,7 @@ class Album  {
     }
 
     
-
+//Set function
     function setAlbumName(String $newName)    {
       $this->albumname = $newName;  
     }

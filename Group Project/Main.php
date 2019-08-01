@@ -12,12 +12,13 @@ require_once("inc/Utilities/PostDAO.class.php");
 require_once("inc/Utilities/TrendyPost.class.php");
 require_once("inc/Utilities/RestClient.class.php");
 
-
+ //Start the session
 session_start();
 
-
+//Check if the form was posted
 if (isset($_POST["logout"])) {
 	session_destroy();
+	//Send the user to the user managment page The two.php
 	header("location:The two.php");
 	return;
 }
@@ -33,8 +34,11 @@ if(isset($_POST["viewTrendyPost"])) {
 	return;
 }
 
+//Initialize the DAO
 AlbumDAO::init();
 UserDAO::init();
+
+//Get the current user 
 $userid = UserDAO::getUser($_SESSION["username"])->getUserID();
 $_SESSION["userid"] = $userid;
 

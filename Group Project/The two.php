@@ -43,7 +43,7 @@ if(!empty($_POST)){
                             $_SESSION["loggedin"] = true;
                             $_SESSION["username"] = $username;
                 
-                            //Send the user to the user managment page Lab09SHi_56789-updateaccount.php
+                            //Send the user to the user managment page Main.php
                             header("location:Main.php");
                         }
                         else 
