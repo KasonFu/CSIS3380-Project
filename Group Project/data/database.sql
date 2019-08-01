@@ -34,11 +34,7 @@ insert into Album (AlbumID, UserID, AlbumName) values (4, 3, 'Keylex');
 insert into Album (AlbumID, UserID, AlbumName) values (5, 2, 'Daltfresh');
 insert into Album (AlbumID, UserID, AlbumName) values (6, 3, 'Alpha');
 
-
-insert into Post (PostID, AlbumID, ImageURL, ImageType) values (1, 5, 'http://dummyimage.com/154x241.bmp/cc0000/ffffff', 'image/jpeg');
-insert into Post (PostID, AlbumID, ImageURL, ImageType) values (2, 4, 'http://dummyimage.com/135x213.bmp/ff4444/ffffff', 'image/jpeg');
 insert into Post (PostID, AlbumID, ImageURL, ImageType) values (3, 3, 'https://i.imgur.com/8e3l97e.mp4', 'video/mp4');
 insert into Post (PostID, AlbumID, ImageURL, ImageType) values (4, 1, 'https://i.imgur.com/HxmitLe.mp4', 'video/mp4');
-insert into Post (PostID, AlbumID, ImageURL, ImageType) values (5, 2, 'http://dummyimage.com/131x178.jpg/dddddd/000000', 'image/jpeg');
 
 
